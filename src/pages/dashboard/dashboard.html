@@ -1,0 +1,62 @@
+<ion-header>
+
+  <ion-navbar color="header">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center;">{{ 'DASHBOARD' | translate }}</ion-title>
+    <ion-buttons end>
+       <button ion-button icon-only (click)="onExport();">
+          <ion-icon name="md-mail"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="doFilter();">
+          <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      {{ 'STACK_EXPENSES' | translate }} - {{currentDate}}
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      {{ 'PERCENTAGE' | translate }} - {{currentDate}}
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #doughnutCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-list>    
+
+    <ion-item *ngFor="let report of data">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h2 item-left><b> {{report.category}} </b> </h2>
+          </ion-col>
+          <ion-col>
+            <h2 item-right><em> {{ report.amount | currency: 'USD': true }} </em></h2>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-list>
+
+
+
+</ion-content>

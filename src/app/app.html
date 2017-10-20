@@ -1,0 +1,38 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar color="header">
+      <ion-title>ConTaxi</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="mainMenu">
+    <!--ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="mainPhoto">
+              <img src="{{userProfile.photoURL}}">
+            </div>
+          </ion-col>
+          <ion-col>
+            <h2 style="margin-top:20%">{{userProfile.displayName}}</h2>
+            <p>{{userProfile.email}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item-->
+
+    <ion-list class="mainMenu">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+        <ion-icon name="{{p.icon}}" item-left></ion-icon>
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
