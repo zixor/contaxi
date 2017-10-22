@@ -21,6 +21,9 @@ import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
 import { CategorySqliteService } from '../providers/category.service.sqlite';
 import { BudgetSqliteService } from '../providers/budget.service.sqlite';
 import { SavingSqliteService } from '../providers/savings.service.sqlite';
+import { ListVehiculoPage } from "../pages/list-vehiculo/list-vehiculo";
+import { ListConductorPage } from "../pages/list-conductor/list-conductor";
+import { VehiculoSqliteService } from "../providers/vehiculo.service.sqlite";
 
 
 @Component({
@@ -52,7 +55,8 @@ export class MyApp {
     private categorySqlService: CategorySqliteService,
     private budgetSqlService: BudgetSqliteService,
     private savingeService: SavingSqliteService,
-    private utilitiesService: UtilitiesService) {
+    private utilitiesService: UtilitiesService,
+    private vehiculoService: VehiculoSqliteService) {
 
     this.rootPage = HomePage;
     this.translate.setDefaultLang("es");
@@ -89,15 +93,15 @@ export class MyApp {
   setMenuItems() {
     // used for an example of ngFor and navigation
     this.pages = [
-
       { title: this.DASHBOARD, component: Dashboard, icon: 'analytics' },
+      { title: "Vehiculos", component: ListVehiculoPage, icon: 'md-car' },
+      { title: "Conductores", component: ListConductorPage, icon: 'md-contact' },
       { title: this.CATEGORY_TITLE, component: ListCategory, icon: 'cube' },
       { title: this.TRANSACTIONS_TITLE, component: HomePage, icon: 'pulse' },
       { title: this.BUDGETS, component: ListBudget, icon: 'card' },
       { title: this.SAVINGS, component: ListSavings, icon: 'cash' },
       { title: this.SETTINGS, component: Settings, icon: 'md-settings' },
       { title: this.CREDITS, component: Credits, icon: 'md-contact' }
-
     ];
   }
 
@@ -150,10 +154,12 @@ export class MyApp {
         this.events.publish("constants:loaded", true);
         this.categorySqlService.openDataBase().then(data => {
           this.budgetSqlService.openDataBase().then(data => {
-            this.savingeService.openDataBase().then(data => {
-              setTimeout(() => {
-                this.splashScreen.hide();
-              }, 100);
+            this.vehiculoService.openDataBase().then(data => {
+              this.savingeService.openDataBase().then(data => {
+                setTimeout(() => {
+                  this.splashScreen.hide();
+                }, 100);
+              });
             });
           });
         });

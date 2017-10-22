@@ -48,6 +48,11 @@ import { ListDetailsSavings } from '../pages/list-details-savings/list-details-s
 import { Credits } from '../pages/credits/credits';
 import { ProfilePage } from '../pages/profile/profile';
 import { RegisterPage } from '../pages/register/register';
+import { ListVehiculoPage } from "../pages/list-vehiculo/list-vehiculo";
+import { VehiculoSqliteService } from "../providers/vehiculo.service.sqlite";
+import { VehiculoPage } from "../pages/vehiculo/vehiculo";
+import { ListConductorPage } from "../pages/list-conductor/list-conductor";
+import { ConductorPage } from "../pages/conductor/conductor";
 
 export function translateLoaderFactory(http: any) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -86,7 +91,11 @@ export function translateLoaderFactory(http: any) {
     ListDetailsSavings,
     Credits,
     ProfilePage,
-    RegisterPage
+    RegisterPage,
+    ListVehiculoPage,
+    VehiculoPage,
+    ListConductorPage,
+    ConductorPage
   ],
   entryComponents: [
     MyApp,
@@ -109,15 +118,20 @@ export function translateLoaderFactory(http: any) {
     ListDetailsSavings,
     Credits,
     ProfilePage,
-    RegisterPage
+    RegisterPage,
+    ListVehiculoPage,
+    VehiculoPage,
+    ListConductorPage,
+    ConductorPage
   ],
   providers: [
     HttpModule,
-    TranslateModule,    
+    TranslateModule,
     ExpenseSqliteService,
     CategorySqliteService,
     BudgetSqliteService,
     SavingSqliteService,
+    VehiculoSqliteService,
     UtilitiesService,
     SocialSharing,
     InAppBrowser,

@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-navbar color="header">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center;">{{expense.description || 'NEW_EXPENSE' | translate }} </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onTrash()" *ngIf="expense.id">
+          <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
+          <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form #f="ngForm">
+
+    <ion-item>
+      <ion-label color="primary" floating>Fecha Ingreso</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" name="fechaIngreso" [(ngModel)]="expense.date" monthNames="{{ 'MONTHNAMES' | translate}}"
+        monthShortNames="{{ 'MONTHSHORTNAMES' | translate}}"></ion-datetime>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <button ion-fab *ngIf="category" color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
+                <ion-icon *ngIf="category" name="{{category.icon}}"></ion-icon>
+              </button>
+        </ion-col>
+        <ion-col>
+          <ion-item item-center>
+            <ion-input type="text" placeholder="Seleccionar Vehículo" *ngIf="category" [(ngModel)]="vehiculo.placa" name="placa" required
+              readonly></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Cédula</ion-label>
+      <ion-input type="number" [(ngModel)]="conductor.cedula" name="cedula" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Nombres</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.nombres" name="nombres" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Apellidos</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.apellidos" name="apellidos" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Teléfono Fijo</ion-label>
+      <ion-input type="number" [(ngModel)]="conductor.telefonoFijo" name="telefonoFijo" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Número Celular</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.celular" name="celular" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Dirección</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.direccion" name="direccion" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Llamar en caso de Emergencia a: </ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.quienllamar" name="quienllamar" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Teléfono</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.telefonoquienllamar" name="telefonoquienllamar" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <br>
+      <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
+    </ion-item>
+
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="add-item" style="text-align: center;">
+    <ion-buttons>
+      <button ion-button icon-left (click)="presentActionSheet()">
+        <ion-icon name="camera"></ion-icon>TOMAR FOTOGRAFÍA
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

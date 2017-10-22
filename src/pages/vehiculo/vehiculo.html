@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="header">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align:center;">Vehículo</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onTrash()" *ngIf="vehiculo.id">
+          <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
+          <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form #f="ngForm">
+
+    <ion-item>
+      <ion-label color="primary" floating>Placa</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.placa" name="placa" required></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-item>
+      <ion-label color="primary" floating>Marca</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.marca" name="marca" required></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-item>
+      <ion-label color="primary" floating>Modelo</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.modelo" name="modelo" required></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-item>
+      <ion-label color="primary">Nuevo</ion-label>
+      <ion-toggle color="add-item" [(ngModel)]="vehiculo.estado" name="estado"></ion-toggle>
+    </ion-item>
+
+  </form>
+</ion-content>
