@@ -25,6 +25,7 @@ import { CategorySqliteService } from '../providers/category.service.sqlite';
 import { BudgetSqliteService } from '../providers/budget.service.sqlite';
 import { UtilitiesService } from '../providers/utilities.service';
 import { SavingSqliteService } from '../providers/savings.service.sqlite';
+import { VehiculoSqliteService } from "../providers/vehiculo.service.sqlite";
 
 //pages
 import { MyApp } from './app.component';
@@ -49,10 +50,10 @@ import { Credits } from '../pages/credits/credits';
 import { ProfilePage } from '../pages/profile/profile';
 import { RegisterPage } from '../pages/register/register';
 import { ListVehiculoPage } from "../pages/list-vehiculo/list-vehiculo";
-import { VehiculoSqliteService } from "../providers/vehiculo.service.sqlite";
 import { VehiculoPage } from "../pages/vehiculo/vehiculo";
 import { ListConductorPage } from "../pages/list-conductor/list-conductor";
 import { ConductorPage } from "../pages/conductor/conductor";
+import { ConductorSqliteService } from "../providers/conductor.service.sqlite";
 
 export function translateLoaderFactory(http: any) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -132,6 +133,7 @@ export function translateLoaderFactory(http: any) {
     BudgetSqliteService,
     SavingSqliteService,
     VehiculoSqliteService,
+    ConductorSqliteService,
     UtilitiesService,
     SocialSharing,
     InAppBrowser,

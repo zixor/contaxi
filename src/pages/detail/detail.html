@@ -36,6 +36,22 @@
     <ion-grid>
       <ion-row>
         <ion-col col-3>
+          <button ion-fab color="header" item-left style="box-shadow:none;" (click)="openModalVehiculo();">
+                <ion-icon name="md-car"></ion-icon>
+              </button>
+        </ion-col>
+        <ion-col>
+          <ion-item item-center>
+            <ion-input type="text" placeholder="Seleccionar Vehículo" *ngIf="vehiculo" [(ngModel)]="vehiculo.placa" name="placa" required
+              readonly></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
           <button ion-fab *ngIf="category" color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
                 <ion-icon *ngIf="category" name="{{category.icon}}"></ion-icon>
               </button>

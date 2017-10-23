@@ -26,8 +26,8 @@
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <button ion-fab *ngIf="vehiculo" color="header" item-left style="box-shadow:none;" (click)="openModalVehiculo();">
-                <ion-icon *ngIf="vehiculo" name="{{vehiculo.placa}}"></ion-icon>
+          <button ion-fab color="header" item-left style="box-shadow:none;" (click)="openModalVehiculo();">
+                <ion-icon name="md-car"></ion-icon>
               </button>
         </ion-col>
         <ion-col>
@@ -64,6 +64,21 @@
       <ion-label color="primary" stacked>Dirección</ion-label>
       <ion-input type="text" [(ngModel)]="conductor.direccion" name="direccion" required></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Pase Vigente</ion-label>
+      <ion-toggle color="add-item" [(ngModel)]="conductor.paseactivo" name="paseactivo"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Fecha Vencimiento Pase</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" name="conductor.vencimientopase" [(ngModel)]="conductor.vencimientopase" monthNames="{{ 'MONTHNAMES' | translate}}"
+        monthShortNames="{{ 'MONTHSHORTNAMES' | translate}}"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Tarjeta Amarilla</ion-label>
+      <ion-toggle color="add-item" [(ngModel)]="conductor.tarjetaamarilla" name="tarjetaamarilla"></ion-toggle>
+    </ion-item>
+
 
     <ion-item>
       <ion-label color="primary" stacked>Llamar en caso de Emergencia a: </ion-label>

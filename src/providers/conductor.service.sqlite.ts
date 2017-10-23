@@ -19,7 +19,8 @@ export class ConductorSqliteService {
   }
 
   createTable() {
-    let sql = 'CREATE TABLE IF NOT EXISTS conductor(id INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT, nombres TEXT, apellidos TEXT, fechaIngreso TEXT, telefonoFijo TEXT, celular TEXT, direccion TEXT, foto TEXT, vehiculo TEXT, quienllamar TEXT, telefonoquienllamar TEXT)';
+    let sql = 'CREATE TABLE IF NOT EXISTS conductor(id INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT, nombres TEXT, apellidos TEXT, fechaIngreso TEXT, telefonoFijo TEXT, celular TEXT, direccion TEXT, foto TEXT, '+
+              ' vehiculo TEXT, quienllamar TEXT, telefonoquienllamar TEXT, paseactivo TEXT, vencimientopase TEXT, tarjetaamarilla TEXT)';
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL conductor Initialized'))
       .catch(e => console.log(e));
@@ -53,16 +54,18 @@ export class ConductorSqliteService {
   }
 
   update(conductor: ConductorModel) {
-    let sql = 'UPDATE conductor SET cedula = ?, nombres = ?, apellidos = ?, fechaIngreso = ?, telefonoFijo = ?, celular = ?, direccion = ?, foto = ?, vehiculo = ?, quienllamar = ?, telefonoquienllamar = ? WHERE id=?';
+    let sql = 'UPDATE conductor SET cedula = ?, nombres = ?, apellidos = ?, fechaIngreso = ?, telefonoFijo = ?, celular = ?, direccion = ?, foto = ?, vehiculo = ?, quienllamar = ?, '+
+              ' telefonoquienllamar = ?, paseactivo = ?, vencimientopase = ?, tarjetaamarilla = ?  WHERE id=?';
     this.sqlObject.executeSql(sql, [conductor.cedula, conductor.nombres, conductor.apellidos, conductor.fechaIngreso, conductor.telefonoFijo, conductor.celular,
-    conductor.direccion, conductor.foto, conductor.vehiculo, conductor.quienllamar, conductor.telefonoquienllamar]);
+    conductor.direccion, conductor.foto, conductor.vehiculo, conductor.quienllamar, conductor.telefonoquienllamar, conductor.paseactivo, conductor.vencimientopase, conductor.tarjetaamarilla]);
   }
 
   add(conductor: ConductorModel) {
     return new Promise((resolve, reject) => {
-      let sql = 'insert into conductor (cedula, nombres, apellidos, fechaIngreso, telefonoFijo, celular, direccion, foto, vehiculo, quienllamar, telefonoquienllamar) values (?,?,?,?,?,?,?,?,?,?,?)';
+      let sql = ' insert into conductor (cedula, nombres, apellidos, fechaIngreso, telefonoFijo, celular, direccion, foto, vehiculo, quienllamar, telefonoquienllamar, '+
+                ' paseactivo, vencimientopase, tarjetaamarilla) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
       this.sqlObject.executeSql(sql, [conductor.cedula, conductor.nombres, conductor.apellidos, conductor.fechaIngreso, conductor.telefonoFijo, conductor.celular,
-      conductor.direccion, conductor.foto, conductor.vehiculo, conductor.quienllamar, conductor.telefonoquienllamar])
+      conductor.direccion, conductor.foto, conductor.vehiculo, conductor.quienllamar, conductor.telefonoquienllamar, conductor.paseactivo, conductor.vencimientopase, conductor.tarjetaamarilla])
         .then(response => {
           resolve(response);
         })

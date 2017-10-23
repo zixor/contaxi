@@ -28,7 +28,7 @@ export class ExpenseSqliteService {
   }
 
   createTable() {
-    let sql = 'CREATE TABLE IF NOT EXISTS expense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, amount REAL, category TEXT, description TEXT, image TEXT, incoming TEXT)';
+    let sql = 'CREATE TABLE IF NOT EXISTS expense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, amount REAL, category TEXT, description TEXT, image TEXT, incoming TEXT, vehiculo TEXT)';
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL Expenses Initialized'))
       .catch(e => console.log(e));
@@ -179,7 +179,7 @@ export class ExpenseSqliteService {
 
     let params = [];
     let data = [];
-    let sql = " SELECT sum(e.amount) amount, c.name category, c.icon icon, c.color color, c.id idcategory " +
+    let sql = " SELECT sum(e.amount) amount, e.vehiculo, c.name category, c.icon icon, c.color color, c.id idcategory " +
       " FROM expense e, category c " +
       " where  e.category = c.id  " +
       " and e.incoming = 'false' ";
@@ -239,16 +239,14 @@ export class ExpenseSqliteService {
   }
 
   update(expense: Expense) {
-
-    let sql = 'UPDATE expense SET date=?, amount=?, category=?, description=?, image = ?, incoming = ? WHERE id=?';
-    this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming, expense.id]);
-
+    let sql = 'UPDATE expense SET date=?, amount=?, category=?, description=?, image = ?, incoming = ?, vehiculo = ? WHERE id=?';
+    this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming, expense.id, expense.vehiculo]);
   }
 
   add(expense: Expense) {
     return new Promise((resolve, reject) => {
-      let sql = 'insert into expense ( date,amount,category, description, image, incoming ) values ( ?,?,?,?,?,? )';
-      this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming])
+      let sql = 'insert into expense ( date,amount,category, description, image, incoming, vehiculo ) values ( ?,?,?,?,?,?,? )';
+      this.sqlObject.executeSql(sql, [expense.date, expense.amount, expense.category, expense.description, expense.image, expense.incoming, expense.vehiculo])
         .then(response => {
           resolve(response);
         })
@@ -269,12 +267,10 @@ export class ExpenseSqliteService {
         })
         .catch(e => console.log(e));
     });
-
   }
 
   closeConnection() {
     this.sqlObject.close();
   }
-
 
 }

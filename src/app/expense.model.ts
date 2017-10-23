@@ -6,4 +6,5 @@ export interface Expense {
     description: string;
     image?: string;
     incoming: false;
+    vehiculo:string;
 }

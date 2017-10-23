@@ -24,6 +24,7 @@ import { SavingSqliteService } from '../providers/savings.service.sqlite';
 import { ListVehiculoPage } from "../pages/list-vehiculo/list-vehiculo";
 import { ListConductorPage } from "../pages/list-conductor/list-conductor";
 import { VehiculoSqliteService } from "../providers/vehiculo.service.sqlite";
+import { ConductorSqliteService } from "../providers/conductor.service.sqlite";
 
 
 @Component({
@@ -56,7 +57,8 @@ export class MyApp {
     private budgetSqlService: BudgetSqliteService,
     private savingeService: SavingSqliteService,
     private utilitiesService: UtilitiesService,
-    private vehiculoService: VehiculoSqliteService) {
+    private vehiculoService: VehiculoSqliteService,
+    private conductorService: ConductorSqliteService) {
 
     this.rootPage = HomePage;
     this.translate.setDefaultLang("es");
@@ -155,10 +157,12 @@ export class MyApp {
         this.categorySqlService.openDataBase().then(data => {
           this.budgetSqlService.openDataBase().then(data => {
             this.vehiculoService.openDataBase().then(data => {
-              this.savingeService.openDataBase().then(data => {
-                setTimeout(() => {
-                  this.splashScreen.hide();
-                }, 100);
+              this.conductorService.openDataBase().then(data => {
+                this.savingeService.openDataBase().then(data => {
+                  setTimeout(() => {
+                    this.splashScreen.hide();
+                  }, 100);
+                });
               });
             });
           });

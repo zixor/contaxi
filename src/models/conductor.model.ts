@@ -11,5 +11,8 @@ export interface ConductorModel {
     foto:string,
     vehiculo: string,
     quienllamar:string,
-    telefonoquienllamar:string
+    telefonoquienllamar:string,
+    paseactivo:string,
+    vencimientopase:string,
+    tarjetaamarilla:string
 }

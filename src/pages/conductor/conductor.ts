@@ -228,7 +228,7 @@ export class ConductorPage {
     }, (err) => { });
   }
 
-  openModalCategory() {
+  openModalVehiculo() {
     const modal = this.modalCtl.create(ModalVehiculoPage);
     modal.present();
     modal.onDidDismiss(vehiculo => {

@@ -16,6 +16,8 @@ import * as moment from 'moment';
 
 //Import modal page
 import { ModalCategory } from '../modal-category/modal-category';
+import { ModalVehiculoPage } from "../modal-vehiculo/modal-vehiculo";
+import { VehiculoModel } from "../../models/vehiculo.model";
 
 declare var cordova: any;
 
@@ -29,6 +31,7 @@ export class Detail {
   private category;
   private lastImage: string = "";
   private loading: Loading;
+  private vehiculo: VehiculoModel;
 
   private SOURCE_IMAGE: string;
   private LOAD_LIBRARY: string;
@@ -59,29 +62,20 @@ export class Detail {
     private platform: Platform,
     private loadingCtrl: LoadingController) {
 
-
     let expense = navParms.get('expense');
-
     if (expense) {
-
       this.expense = expense;
       if (expense.image) {
         this.lastImage = expense.image;
       }
       this.category = expense.category;
-
     } else {
-
       this.initExpense();
       this.initCategory();
-
     }
-
   }
 
-
   initializeConstants() {
-
     this.utilitiesService.getValueByLanguaje("SOURCE_IMAGE").then(value => {
       this.SOURCE_IMAGE = value;
     });
@@ -112,7 +106,6 @@ export class Detail {
     this.utilitiesService.getValueByLanguaje("QUESTION_CONTINUE").then(value => {
       this.QUESTION_CONTINUE = value;
     });
-
   }
 
   private initExpense() {
@@ -144,26 +137,26 @@ export class Detail {
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create(
       {
-      title: "Image Source",
-      buttons: [
-        {
-          text: "From Library",
-          handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+        title: "Image Source",
+        buttons: [
+          {
+            text: "From Library",
+            handler: () => {
+              this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            }
+          },
+          {
+            text: "Use Camera",
+            handler: () => {
+              this.takePicture(this.camera.PictureSourceType.CAMERA);
+            }
+          },
+          {
+            text: "Cancel",
+            role: "Cancel"
           }
-        },
-        {
-          text: "Use Camera",
-          handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
-          }
-        },
-        {
-          text: "Cancel",
-          role: "Cancel"
-        }
-      ]
-    });
+        ]
+      });
     actionSheet.present();
   }
 
@@ -235,23 +228,15 @@ export class Detail {
 
     let budget = null;
     let budgetExecuted: number = 0;
-
     this.budgeteService.getBudgetByDateExpenseAndCategory(this.expense.date, this.expense.category).then(data => {
-
       budget = data[0];
-
       if (budget != null) {
-
         this.expenseService.getExpensesGroupByCategory(budget.initialDate, budget.finalDate, budget.category)
           .then(data => {
-
             if (data.length > 0) {
-
               let expenseExecuted = data[0];
-
               budgetExecuted = parseInt(expenseExecuted.amount) + parseInt(this.expense.amount);
               let currencyformat = budgetExecuted.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-
               if (budgetExecuted > budget.amount) {
                 let confirm = this.alertCtrl.create({
                   title: this.WARNING,
@@ -274,9 +259,7 @@ export class Detail {
                 });
                 confirm.present();
               }
-
             } else if (parseInt(this.expense.amount) > parseInt(budget.amount)) {
-
               //TODO REFACTOR 
               let confirm = this.alertCtrl.create({
                 title: this.WARNING,
@@ -298,41 +281,25 @@ export class Detail {
                 ]
               });
               confirm.present();
-
-
             } else {
-
               this.saveExpense();
-
             }
-
-
           });
-
       } else {
-
         this.saveExpense();
-
       }
-
     });
-
   }
 
   saveExpense() {
-
     this.expense.image = this.lastImage;
     this.expense.date = moment(new Date(this.expense.date).toISOString()).format();
-
+    this.expense.vehiculo = this.vehiculo.placa;
     if (this.expense.id) {
-
       this.expense.category = this.expense.category.id;
       this.expenseService.update(this.expense);
-
     } else {
-
       this.expenseService.add(this.expense);
-
     }
     this.navCtrl.pop();
   }
@@ -369,29 +336,23 @@ export class Detail {
 
 
   openModalCategory() {
-
     const modal = this.modalCtl.create(ModalCategory);
     modal.present();
-
     modal.onDidDismiss(category => {
       if (category) {
         this.category = category;
         this.expense.category = category.id;
       }
     });
-
   }
 
   public uploadImage() {
     // Destination URL
     var url = "http://yoururl/upload.php";
-
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
-
     // File name only
     var filename = this.lastImage;
-
     var options = {
       fileKey: "file",
       fileName: filename,
@@ -399,14 +360,11 @@ export class Detail {
       mimeType: "multipart/form-data",
       params: { 'fileName': filename }
     };
-
     const fileTransfer: TransferObject = this.transfer.create();
-
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...',
     });
     this.loading.present();
-
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
       this.loading.dismissAll()
@@ -414,6 +372,16 @@ export class Detail {
     }, err => {
       this.loading.dismissAll()
       this.presentToast('Error while uploading file.');
+    });
+  }
+
+  openModalVehiculo() {
+    const modal = this.modalCtl.create(ModalVehiculoPage);
+    modal.present();
+    modal.onDidDismiss(vehiculo => {
+      if (vehiculo) {
+        this.vehiculo = vehiculo;
+      }
     });
   }
 
