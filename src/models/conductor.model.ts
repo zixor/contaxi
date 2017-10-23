@@ -5,9 +5,9 @@ export interface ConductorModel {
     nombres: string,
     apellidos: string,
     fechaIngreso: string,
-    telefonoFijo?: string,
+    telefonoFijo: string,
     celular: string,
-    direccion:string
+    direccion:string,
     foto:string,
     vehiculo: string,
     quienllamar:string,

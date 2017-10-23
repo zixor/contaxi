@@ -19,7 +19,7 @@
 
     <ion-item-sliding *ngFor="let vehiculo of vehiculos">
       <ion-item (click)="editVehiculo(vehiculo);">        
-        <button ion-fab color="yellow" item-left style="box-shadow:none;">
+        <button ion-fab color="header" item-left style="box-shadow:none;">
             <ion-icon name="md-car"></ion-icon>
         </button>
         <h2 item-center style="margin-left:7%">{{vehiculo.marca}}-{{vehiculo.placa}}</h2>

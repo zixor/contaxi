@@ -3,9 +3,9 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title style="text-align:center;">{{expense.description || 'NEW_EXPENSE' | translate }} </ion-title>
+    <ion-title style="text-align:center;">{{conductor.nombres || Nuevo Conductor }} </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="onTrash()" *ngIf="expense.id">
+      <button ion-button icon-only (click)="onTrash()" *ngIf="conductor.id">
           <ion-icon name="trash"></ion-icon>
       </button>
       <button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
@@ -19,20 +19,20 @@
 
     <ion-item>
       <ion-label color="primary" floating>Fecha Ingreso</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" name="fechaIngreso" [(ngModel)]="expense.date" monthNames="{{ 'MONTHNAMES' | translate}}"
+      <ion-datetime displayFormat="MMM DD YYYY" name="fechaIngreso" [(ngModel)]="conductor.fechaIngreso" monthNames="{{ 'MONTHNAMES' | translate}}"
         monthShortNames="{{ 'MONTHSHORTNAMES' | translate}}"></ion-datetime>
     </ion-item>
 
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <button ion-fab *ngIf="category" color="{{category.color}}" item-left style="box-shadow:none;" (click)="openModalCategory();">
-                <ion-icon *ngIf="category" name="{{category.icon}}"></ion-icon>
+          <button ion-fab *ngIf="vehiculo" color="header" item-left style="box-shadow:none;" (click)="openModalVehiculo();">
+                <ion-icon *ngIf="vehiculo" name="{{vehiculo.placa}}"></ion-icon>
               </button>
         </ion-col>
         <ion-col>
           <ion-item item-center>
-            <ion-input type="text" placeholder="Seleccionar Vehículo" *ngIf="category" [(ngModel)]="vehiculo.placa" name="placa" required
+            <ion-input type="text" placeholder="Seleccionar Vehículo" *ngIf="vehiculo" [(ngModel)]="vehiculo.placa" name="placa" required
               readonly></ion-input>
           </ion-item>
         </ion-col>
