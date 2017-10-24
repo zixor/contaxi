@@ -19,15 +19,17 @@
 
     <ion-item-sliding *ngFor="let conductor of conductores">
       <ion-item (click)="editConductor(conductor);">
+
         <button *ngIf="!conductor.foto" ion-fab color="gray" item-left style="box-shadow:none;">
             <ion-icon name="md-contact"></ion-icon>
         </button>
-        <div *ngIf="conductor.foto" class="mainPhoto">
+        <div *ngIf="conductor.foto" class="mainPhoto" item-left>
           <img src="{{pathForImage(conductor.foto)}}">
-        </div>
+        </div>     
         <h2 item-center style="margin-left:7%">{{conductor.nombres}}</h2>
         <p item-center style="margin-left:7%">{{conductor.apellidos}}</p>
         <ion-note item-right>{{conductor.vehiculo}}</ion-note>
+
       </ion-item>
       <ion-item-options>
         <button ion-button color="add-item" icon-left (click)="onCall(conductor);">
