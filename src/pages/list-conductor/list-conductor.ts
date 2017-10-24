@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ConductorModel } from "../../models/conductor.model";
+import { CallNumber } from '@ionic-native/call-number';
 import { VehiculoSqliteService } from "../../providers/vehiculo.service.sqlite";
 import { ConductorSqliteService } from "../../providers/conductor.service.sqlite";
 import { ConductorPage } from "../conductor/conductor";
+declare var cordova: any;
 
 @Component({
   selector: 'page-list-conductor',
@@ -11,18 +13,19 @@ import { ConductorPage } from "../conductor/conductor";
 })
 export class ListConductorPage {
 
-  private vehiculos: ConductorModel[] = [];
+  private conductores: ConductorModel[] = [];
 
   constructor(private navCtrl: NavController,
     private vehiculoService: VehiculoSqliteService,
     private conductorService: ConductorSqliteService,
+    private callNumber: CallNumber,
     private alertCtrl: AlertController) {
     this.loadData();
   }
 
   loadData() {
-    this.vehiculoService.getAll().then(data => {
-      this.vehiculos = data;
+    this.conductorService.getAll().then(data => {
+      this.conductores = data;
     });
   }
 
@@ -38,16 +41,22 @@ export class ListConductorPage {
     this.navCtrl.push(ConductorPage);
   }
 
-  editCategory(conductor: ConductorModel) {
+  editConductor(conductor: ConductorModel) {
     this.navCtrl.push(ConductorPage, {
       conductor: conductor
     });
   }
 
+  onCall(conductor: ConductorModel) {  
+    this.callNumber.callNumber(conductor.celular, true)
+      .then(() => console.log('Launched dialer!'))
+      .catch(() => console.log('Error launching dialer'))
+  }
+
   doRefresh(refresher) {
     this.vehiculoService.getAll()
       .then(data => {
-        this.vehiculos = data;
+        this.conductores = data;
         refresher.complete();
       })
       .catch(e => console.log(e));
@@ -73,6 +82,14 @@ export class ListConductorPage {
       ]
     });
     confirm.present();
+  }
+
+   public pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return cordova.file.dataDirectory + img;
+    }
   }
 
 }

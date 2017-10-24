@@ -18,6 +18,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
+import { CallNumber } from '@ionic-native/call-number';
 
 //Services
 import { ExpenseSqliteService } from '../providers/expense.service.sqlite';
@@ -54,6 +55,7 @@ import { VehiculoPage } from "../pages/vehiculo/vehiculo";
 import { ListConductorPage } from "../pages/list-conductor/list-conductor";
 import { ConductorPage } from "../pages/conductor/conductor";
 import { ConductorSqliteService } from "../providers/conductor.service.sqlite";
+import { ModalVehiculoPage } from "../pages/modal-vehiculo/modal-vehiculo";
 
 export function translateLoaderFactory(http: any) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -84,6 +86,7 @@ export function translateLoaderFactory(http: any) {
     ModalColors,
     ModalIcons,
     ModalCategory,
+    ModalVehiculoPage,
     ProgressBarComponent,
     Calculator,
     Datefilter,
@@ -112,6 +115,7 @@ export function translateLoaderFactory(http: any) {
     ModalColors,
     ModalIcons,
     ModalCategory,
+    ModalVehiculoPage,
     Calculator,
     Datefilter,
     ListSavings,
@@ -148,6 +152,7 @@ export function translateLoaderFactory(http: any) {
     Camera,
     FilePath,
     ImagePicker,
+    CallNumber,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ],
   bootstrap: [IonicApp]

@@ -57,30 +57,35 @@ export class ConductorPage {
       if (conductor.foto) {
         this.lastImage = conductor.foto;
       }
-      this.vehiculo.placa = conductor.vehiculo;
+      this.vehiculoService.getVehiculoByPlaca(this.conductor.vehiculo).then(data => {
+        this.vehiculo = data;
+      });
     } else {
       this.initConductor();
-      this.initCategory();
+      this.initVehiculo();
     }
   }
 
   private initConductor() {
     this.conductor = {
-      fechaIngreso: new Date().toISOString(),
       cedula: "",
       nombres: "",
       apellidos: "",
+      fechaIngreso: "",
       telefonoFijo: "",
       celular: "",
       direccion: "",
       foto: "",
       vehiculo: "",
       quienllamar: "",
-      telefonoquienllamar: ""
+      telefonoquienllamar: "",
+      paseactivo: false,
+      vencimientopase: "",
+      tarjetaamarilla: false,
     };
   }
 
-  private initCategory() {
+  private initVehiculo() {
     this.vehiculo = {
       placa: "",
       modelo: "",
@@ -189,8 +194,8 @@ export class ConductorPage {
   onSave() {
     this.conductor.foto = this.lastImage;
     this.conductor.fechaIngreso = moment(new Date(this.conductor.fechaIngreso).toISOString()).format();
+    this.conductor.vehiculo = this.vehiculo.placa;
     if (this.conductor.id) {
-      this.conductor.vehiculo = this.vehiculo.placa;
       this.conductorService.update(this.conductor);
     } else {
       this.conductorService.add(this.conductor);

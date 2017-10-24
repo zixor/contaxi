@@ -40,5 +40,14 @@
       <ion-toggle color="add-item" [(ngModel)]="vehiculo.estado" name="estado"></ion-toggle>
     </ion-item>
 
+    <ion-item>
+      <ion-label color="primary" floating>Liquidación Semana</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.liquidacionsem" name="liquidacionsem" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Liquidación Domingo y Festivo</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.liquidaciondomfes" name="liquidaciondomfes" required></ion-input>
+    </ion-item>
+
   </form>
 </ion-content>

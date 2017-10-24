@@ -100,6 +100,7 @@ export class MyApp {
       { title: "Conductores", component: ListConductorPage, icon: 'md-contact' },
       { title: this.CATEGORY_TITLE, component: ListCategory, icon: 'cube' },
       { title: this.TRANSACTIONS_TITLE, component: HomePage, icon: 'pulse' },
+      { title: "Gastos Fijos", component: HomePage, icon: 'md-clipboard' },
       { title: this.BUDGETS, component: ListBudget, icon: 'card' },
       { title: this.SAVINGS, component: ListSavings, icon: 'cash' },
       { title: this.SETTINGS, component: Settings, icon: 'md-settings' },

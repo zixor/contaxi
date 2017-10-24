@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title style="text-align:center;">{{conductor.nombres || Nuevo Conductor }} </ion-title>
+    <ion-title style="text-align:center;">{{conductor.nombres || 'Nuevo Conductor' }} </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="onTrash()" *ngIf="conductor.id">
           <ion-icon name="trash"></ion-icon>
@@ -18,7 +18,7 @@
   <form #f="ngForm">
 
     <ion-item>
-      <ion-label color="primary" floating>Fecha Ingreso</ion-label>
+      <ion-label color="primary" stacked>Fecha Ingreso</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" name="fechaIngreso" [(ngModel)]="conductor.fechaIngreso" monthNames="{{ 'MONTHNAMES' | translate}}"
         monthShortNames="{{ 'MONTHSHORTNAMES' | translate}}"></ion-datetime>
     </ion-item>
@@ -58,7 +58,7 @@
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Número Celular</ion-label>
-      <ion-input type="text" [(ngModel)]="conductor.celular" name="celular" required></ion-input>
+      <ion-input type="number" [(ngModel)]="conductor.celular" name="celular" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Dirección</ion-label>
@@ -70,7 +70,7 @@
       <ion-toggle color="add-item" [(ngModel)]="conductor.paseactivo" name="paseactivo"></ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" floating>Fecha Vencimiento Pase</ion-label>
+      <ion-label color="primary" stacked>Fecha Vencimiento Pase</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" name="conductor.vencimientopase" [(ngModel)]="conductor.vencimientopase" monthNames="{{ 'MONTHNAMES' | translate}}"
         monthShortNames="{{ 'MONTHSHORTNAMES' | translate}}"></ion-datetime>
     </ion-item>
@@ -86,7 +86,7 @@
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Teléfono</ion-label>
-      <ion-input type="text" [(ngModel)]="conductor.telefonoquienllamar" name="telefonoquienllamar" required></ion-input>
+      <ion-input type="number" [(ngModel)]="conductor.telefonoquienllamar" name="telefonoquienllamar" required></ion-input>
     </ion-item>
 
     <ion-item>

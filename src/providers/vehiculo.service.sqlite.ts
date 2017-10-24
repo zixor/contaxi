@@ -18,7 +18,7 @@ export class VehiculoSqliteService {
   }
 
   createTable() {
-    let sql = 'CREATE TABLE IF NOT EXISTS vehiculo(id INTEGER PRIMARY KEY AUTOINCREMENT, placa TEXT, modelo TEXT, marca TEXT, estado TEXT)';
+    let sql = 'CREATE TABLE IF NOT EXISTS vehiculo(id INTEGER PRIMARY KEY AUTOINCREMENT, placa TEXT, modelo TEXT, marca TEXT, estado TEXT, liquidacionsem TEXT, liquidaciondomfes TEXT)';
     this.sqlObject.executeSql(sql, {})
       .then(() => console.log('SQL vehiculo Initialized'))
       .catch(e => console.log(e));
@@ -51,14 +51,34 @@ export class VehiculoSqliteService {
     });
   }
 
+  getVehiculoByPlaca(placa: string): Promise<any> {
+
+    let vehiculo = null;
+    let sql = "select * from vehiculo where placa = ? ";
+
+    return new Promise((resolve, reject) => {
+      this.sqlObject.executeSql(sql, [placa])
+        .then(response => {
+          for (let index = 0; index < response.rows.length; index++) {
+            let record = response.rows.item(index);
+            if (record) {
+              vehiculo = record;
+            }
+          }
+          resolve(vehiculo);
+        })
+        .catch(e => reject(e));
+    });
+  }
+
   update(vehiculo: VehiculoModel) {
-    let sql = 'UPDATE vehiculo SET placa = ?, modelo = ?, marca= ?, estado = ? WHERE id=?';
+    let sql = 'UPDATE vehiculo SET placa = ?, modelo = ?, marca= ?, estado = ?, liquidacionsem = ?, liquidaciondomfes = ? WHERE id=?';
     this.sqlObject.executeSql(sql, [vehiculo.placa, vehiculo.modelo, vehiculo.marca, vehiculo.estado]);
   }
 
   add(vehiculo: VehiculoModel) {
     return new Promise((resolve, reject) => {
-      let sql = 'insert into vehiculo (placa,modelo,marca,estado) values (?,?,?,?)';
+      let sql = 'insert into vehiculo (placa,modelo,marca,estado,liquidacionsem,liquidaciondomfes) values (?,?,?,?,?,?)';
       this.sqlObject.executeSql(sql, [vehiculo.placa, vehiculo.modelo, vehiculo.marca, vehiculo.estado])
         .then(response => {
           resolve(response);

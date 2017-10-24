@@ -36,7 +36,7 @@ export class ListVehiculoPage {
     this.navCtrl.push(VehiculoPage);
   }
 
-  editCategory(vehiculo: VehiculoModel) {
+  editVehiculo(vehiculo: VehiculoModel) {
     this.navCtrl.push(VehiculoPage, {
       vehiculo: vehiculo
     });
